@@ -14,7 +14,13 @@ git clone https://github.com/mjimenezj/crf_prediction.git
 cd crf_prediction
 ```
 
-2. **Create and activate a virtual environment (recommended)**
+2. **Create and activate an environment (recommended)**
+ - with conda
+```bash
+conda create -n crf_prediction python=3.10
+conda activate crf_prediction
+```
+- or with virtual environment (venv)
 ```bash
 python -m venv venv
 source venv/bin/activate    # On Linux/Mac
@@ -48,4 +54,5 @@ This will launch the interactive VO₂max prediction app in your web browser. En
 - `2_EDA_and_Clustering.ipynb`: Exploratory Data Analysis and clustering.
 
 - `3_ML_models.ipynb`: Training, evaluation, and hyperparameter tuning of machine learning models.
+
 

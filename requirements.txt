@@ -1,0 +1,24 @@
+# Data manipulation
+numpy>=1.23
+pandas>=1.5
+
+# Visualization
+matplotlib>=3.7
+seaborn>=0.12
+
+# Machine learning
+scikit-learn>=1.2
+xgboost>=1.7
+
+# Database
+psycopg2-binary>=2.9
+sqlalchemy>=2.0
+
+# Environment variables
+python-dotenv>=1.0
+
+# Model persistence
+joblib>=1.2
+
+# Web app
+streamlit>=1.20

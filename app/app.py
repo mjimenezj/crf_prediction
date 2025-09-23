@@ -146,9 +146,11 @@ def interpret_vo2max(vo2max, gender):
         return "Fair"
     else:
         return "Poor"
-
+        
 if st.button("Predict VO₂max"):
-    vo2max_pred = model.predict(features_scaled)[0]
+    vo2max_log_pred = model.predict(features_scaled)[0]  # prediction in log scale
+    vo2max_pred = np.exp(vo2max_log_pred)  # convert back to original VO2max scale
     st.success(f"Estimated VO₂max: {vo2max_pred:.2f} ml/kg/min")
+    
     category = interpret_vo2max(vo2max_pred, sex)
     st.info(f"Your VO₂max category is: {category}")

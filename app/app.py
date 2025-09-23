@@ -14,35 +14,38 @@ sqrt_sym_features = ["weight_diff"]
 
 # --- Mean values for features not provided by user ---
 X_mean = {
+    "poverty_ratio": 2.3,
+    "family_income": 4.6,
+    "health_insurance": 0.75,
     "physical_activity_time": 7.37,
     "systolic_bp": 113.1,
     "diastolic_bp": 64.85,
     "pulse_rate": 72.96,
-    "waist_perimeter": 4.43,
-    "weight": 4.22,
+    "waist_perimeter": 90.0,
+    "weight": 75.0,
     "height": 167.2,
-    "cholesterol": 5.13,
+    "cholesterol": 190.0,
     "red_blood_cell_count": 4.81,
     "hemoglobin": 14.32,
     "hematocrit": 42.3,
     "mean_cell_hemoglobin": 29.82,
     "red_cell_distribution_width": 12.51,
+    "weight_diff": 0.0,
     # one-hot categorical averages
-    "health_insurance": 0.75,
-    "smoker_former": 0.24,
-    "smoker_no": 0.55,
-    "smoker_yes": 0.21,
     "ethnic_mexican": 0.316,
     "ethnic_hispanic": 0.044,
     "ethnic_white": 0.338,
     "ethnic_black": 0.264,
-    "ethnic_other": 0.038
+    "ethnic_other": 0.038,
+    "smoker_former": 0.24,
+    "smoker_no": 0.55,
+    "smoker_yes": 0.21,
 }
 
 # --- Streamlit UI ---
-st.title("VO2max Prediction App")
+st.title("VO₂max Prediction App 🫁")
 st.write(
-    "Enter your biometric information to estimate your VO2max. "
+    "Enter your biometric information to estimate your VO₂max. "
     "The model was trained on participants aged 16–49 years. Predictions outside this range may be less reliable."
 )
 
@@ -72,29 +75,32 @@ if age < 16 or age > 49:
 sex_val = 1 if sex == "Male" else 0
 education_map = {"Less than high school": 0, "High school": 1, "Greater than high school": 2}
 education_val = education_map[education_level]
-smoker_map = {"Yes": 1, "No": 0}
-smoker_val = smoker_map[smoker]
+smoker_map = {"Yes": "smoker_yes", "No": "smoker_no"}
+smoker_feature = smoker_map[smoker]
 
 ethnicity_map = {
     "Mexican American": "ethnic_mexican",
     "Other Hispanic": "ethnic_hispanic",
     "Non-Hispanic White": "ethnic_white",
     "Non-Hispanic Black": "ethnic_black",
-    "Other/Multi-Racial": "ethnic_other"
+    "Other/Multi-Racial": "ethnic_other",
 }
 ethnicity_feature = ethnicity_map[ethnicity]
 
-# --- Build feature vector ---
+# --- Correct feature order (29 features from training) ---
 model_feature_order = [
-    "age", "gender", "body_fat_percent", "bmi", "education_level",
-    "smoker_yes", "smoker_no", "smoker_former",
-    "ethnic_mexican", "ethnic_hispanic", "ethnic_white", "ethnic_black", "ethnic_other",
-    "physical_activity_time", "systolic_bp", "diastolic_bp", "pulse_rate", "waist_perimeter",
-    "weight", "height", "cholesterol", "red_blood_cell_count", "hemoglobin",
-    "hematocrit", "mean_cell_hemoglobin", "red_cell_distribution_width",
-    "poverty_ratio", "family_income", "weight_diff"
+    "age", "gender", "poverty_ratio", "family_income", "education_level",
+    "health_insurance", "physical_activity_time", "systolic_bp",
+    "diastolic_bp", "pulse_rate", "bmi", "waist_perimeter",
+    "body_fat_percent", "weight_diff", "weight", "height", "cholesterol",
+    "red_blood_cell_count", "hemoglobin", "hematocrit",
+    "mean_cell_hemoglobin", "red_cell_distribution_width",
+    "ethnic_mexican", "ethnic_hispanic", "ethnic_white",
+    "ethnic_black", "ethnic_other",
+    "smoker_former", "smoker_no", "smoker_yes",
 ]
 
+# --- Build feature vector ---
 features = []
 for feat in model_feature_order:
     if feat == "age":
@@ -107,10 +113,10 @@ for feat in model_feature_order:
         val = bmi
     elif feat == "education_level":
         val = education_val
-    elif feat.startswith("smoker"):
-        val = 1 if feat == f"smoker_{smoker.lower()}" else 0
-    elif feat.startswith("ethnic"):
-        val = 1 if feat == ethnicity_feature else 0
+    elif feat == smoker_feature:
+        val = 1
+    elif feat == ethnicity_feature:
+        val = 1
     else:
         val = X_mean[feat]
 
@@ -141,8 +147,8 @@ def interpret_vo2max(vo2max, gender):
     else:
         return "Poor"
 
-if st.button("Predict VO2max"):
+if st.button("Predict VO₂max"):
     vo2max_pred = model.predict(features_scaled)[0]
-    st.success(f"Estimated VO2max: {vo2max_pred:.2f} ml/kg/min")
+    st.success(f"Estimated VO₂max: {vo2max_pred:.2f} ml/kg/min")
     category = interpret_vo2max(vo2max_pred, sex)
-    st.info(f"Your VO2max category is: {category}")
+    st.info(f"Your VO₂max category is: {category}")

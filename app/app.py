@@ -135,7 +135,7 @@ features_scaled = scaler.transform(features)
 
 # --- Prediction and interpretation ---
 def interpret_vo2max(vo2max, gender):
-    thresholds = [55.4, 51.1, 45.4, 41.7] if gender == "Male" else [49.6, 43.9, 39.5, 36.1]
+    thresholds = [51.4, 47.1, 41.4, 37.7] if gender == "Male" else [45.6, 39.9, 35.5, 32.1]
     if vo2max >= thresholds[0]:
         return "Superior"
     elif vo2max >= thresholds[1]:

@@ -1,4 +1,4 @@
-# Master's thesis - Cardiorespiratory Fitness Prediction (VO₂max) 
+## Master's thesis - Machine Learning Models for Cardiorespiratory Fitness Prediction using Biometric Data
 
 ### 📖 Project Overview
 This repository contains the complete code, datasets, and Streamlit application for the Master's Thesis project focused on predicting cardiorespiratory fitness (VO₂max) using non-exercise variables from NHANES datasets.
@@ -56,6 +56,7 @@ This will launch the interactive VO₂max prediction app in your web browser. En
 - `2_EDA_and_Clustering.ipynb`: Exploratory Data Analysis and clustering.
 
 - `3_ML_models.ipynb`: Training, evaluation, and hyperparameter tuning of machine learning models.
+
 
 
 

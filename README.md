@@ -5,7 +5,7 @@ This repository contains the complete code, datasets, and Streamlit application 
 The detailed report of this Master's Thesis is available in the PDF file included in this repository.  
 
 
-<p align="center"> <img src="images/overview.png" alt="Imagen" width="800" /> </p>
+<p align="center"> <img src="images/overview.png" alt="Imagen" width="750" /> </p>
 
 ### ⚙️ Usage Instructions
 
@@ -56,6 +56,7 @@ This will launch the interactive VO₂max prediction app in your web browser. En
 - `2_EDA_and_Clustering.ipynb`: Exploratory Data Analysis and clustering.
 
 - `3_ML_models.ipynb`: Training, evaluation, and hyperparameter tuning of machine learning models.
+
 
 
 

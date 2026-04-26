@@ -2,7 +2,7 @@
 
 ### 📖 Project Overview
 This repository contains the complete code, datasets, and Streamlit application for the Master's Thesis project focused on predicting cardiorespiratory fitness (VO₂max) using non-exercise variables from NHANES datasets.
-The detailed report of this Master's Thesis is available in the PDF file included in this repository.  
+The detailed report of this Master's Thesis is available [in this PDF file](https://github.com/mjimenezj/crf_prediction/blob/main/TF_Marcos_Jimenez_Juliana_240925.pdf), included in the repository.  
 
 
 <p align="center"> <img src="images/overview.png" alt="Imagen" width="750" /> </p>
